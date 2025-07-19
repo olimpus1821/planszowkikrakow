@@ -1,63 +1,64 @@
-// Krakowskie Planszówki 2.0 - Fixed Application Logic
+// Krakowskie Planszówki - FINALNA NAPRAWIONA WERSJA
+console.log('🎲 Krakowskie Planszówki - Inicjalizacja');
 
-// Application Data
+// DANE APLIKACJI
 const AppData = {
   clubs: [
     {
       id: 1,
       name: "Meeples Restobar",
       address: "Karmelicka 9, 31-128 Kraków",
-      coordinates: [50.0619, 19.9350],
-      hours: "9:00-23:00",
-      description: "Nowoczesne połączenie restauracji z grami planszowymi"
+      coordinates: [50.0648, 19.9377],
+      hours: "9:00-23:00"
     },
     {
       id: 2,
       name: "Hex Cafe",
       address: "Dwernickiego 5, 31-518 Kraków", 
-      coordinates: [50.0647, 19.9450],
-      hours: "15:00-22:00",
-      description: "Alternatywna kawiarnia z punk underground klimatem"
+      coordinates: [50.0503, 19.9398],
+      hours: "15:00-22:00"
     },
     {
       id: 3,
       name: "Boardowa",
       address: "Topolowa 52/2, 31-506 Kraków",
-      coordinates: [50.0875, 20.0475],
-      hours: "16:00-23:00",
-      description: "Specjalizuje się w turniejach i premierach nowych gier"
+      coordinates: [50.0776, 19.9691],
+      hours: "16:00-23:00"
     },
     {
       id: 4,
       name: "Domówka Cafe",
       address: "Miodowa 28a, 31-055 Kraków",
-      coordinates: [50.0614, 19.9372],
-      hours: "12:00-22:00",
-      description: "Najstarszy lokal planszówkowy w Krakowie z ponad 500 grami"
+      coordinates: [50.0623, 19.9490],
+      hours: "12:00-22:00"
     },
     {
       id: 5,
       name: "BarON",
       address: "Batorego 1, 31-135 Kraków",
-      coordinates: [50.0619, 19.9281],
-      hours: "17:00-01:00",
-      description: "Łączy gry planszowe z rozrywką konsolową"
+      coordinates: [50.0619, 19.9370],
+      hours: "17:00-01:00"
     },
     {
       id: 6,
       name: "R'lyeh Cafe",
       address: "Lubicz 28, 31-512 Kraków",
-      coordinates: [50.0677, 19.9449],
-      hours: "18:00-24:00",
-      description: "Klimatyczne wnętrza inspirowane H.P. Lovecraftem"
+      coordinates: [50.0681, 19.9470],
+      hours: "18:00-24:00"
     },
     {
       id: 7,
+      name: "Runa Game Cafe",
+      address: "Brzozowa 4, 31-054 Kraków",
+      coordinates: [50.0541, 19.9447],
+      hours: "16:00-22:00"
+    },
+    {
+      id: 8,
       name: "Planszówki Kliny",
       address: "Forteczna 146, 30-437 Kraków",
-      coordinates: [50.0123, 19.8967],
-      hours: "Poniedziałki 18:00-21:00",
-      description: "Cotygodniowe spotkania w Fort 52 Borek"
+      coordinates: [50.0890, 19.9180],
+      hours: "Poniedziałki 18:00-21:00"
     }
   ],
   events: [
@@ -69,9 +70,7 @@ const AppData = {
       date: "2025-07-19",
       time: "19:00",
       maxPlayers: 4,
-      players: ["planszowka_lover"],
-      organizer: "MasterCatan",
-      description: "Rozszerzenie do klasycznego Catana"
+      players: ["planszowka_lover"]
     },
     {
       id: 2,
@@ -81,9 +80,7 @@ const AppData = {
       date: "2025-07-20",
       time: "18:30",
       maxPlayers: 4,
-      players: [],
-      organizer: "AzulMaster",
-      description: "Piękna gra w zbieranie płytek"
+      players: []
     },
     {
       id: 3,
@@ -93,9 +90,7 @@ const AppData = {
       date: "2025-07-21",
       time: "17:00",
       maxPlayers: 5,
-      players: ["natura_fan", "ptak_miłośnik"],
-      organizer: "BirdWatcher",
-      description: "Strategiczna gra o ptakach"
+      players: ["natura_fan", "ptak_miłośnik"]
     },
     {
       id: 4,
@@ -105,131 +100,35 @@ const AppData = {
       date: "2025-07-22",
       time: "19:30",
       maxPlayers: 6,
-      players: ["horror_fan", "cthulhu_lover", "rpg_master", "gracz456"],
-      organizer: "Keeper_Koszmaru",
-      description: "Sesja RPG w uniwersum Lovecrafta"
+      players: ["horror_fan", "cthulhu_lover"]
     },
     {
       id: 5,
       title: "Poniedziałkowe Planszówki",
-      clubId: 7,
+      clubId: 8,
       gameId: "Mix Gier",
       date: "2025-07-21",
       time: "18:00",
       maxPlayers: 12,
-      players: ["lokalny_gracz", "kliny_regular", "fort_fan", "board_enthusiast", "game_lover", "kraków_player", "weekly_gamer"],
-      organizer: "Organizator_Kliny",
-      description: "Cotygodniowe spotkanie - różne gry"
+      players: ["lokalny_gracz", "kliny_regular", "fort_fan"]
     }
   ],
-  badges: [
-    {
-      id: 1,
-      name: "Pierwsze Kroki",
-      description: "Weź udział w pierwszym wydarzeniu",
-      icon: "🎯",
-      requirement: "attend_first_event"
-    },
-    {
-      id: 2,
-      name: "Aktywny Gracz",
-      description: "Weź udział w 5 wydarzeniach",
-      icon: "⚡",
-      requirement: "attend_5_events"
-    },
-    {
-      id: 3,
-      name: "Eksplorator",
-      description: "Odwiedź 3 różne kluby",
-      icon: "🗺️",
-      requirement: "visit_3_clubs"
-    },
-    {
-      id: 4,
-      name: "Społecznik",
-      description: "Zorganizuj własne wydarzenie",
-      icon: "👥",
-      requirement: "organize_event"
-    },
-    {
-      id: 5,
-      name: "Planszówkowy Mistrz",
-      description: "Weź udział w 20 wydarzeniach",
-      icon: "👑",
-      requirement: "attend_20_events"
-    },
-    {
-      id: 6,
-      name: "Nocny Marszruta",
-      description: "Zagraj po 21:00",
-      icon: "🌙",
-      requirement: "play_late_night"
-    }
-  ],
-  sampleUsers: [
+  users: [
     {
       username: "gracz123",
       email: "gracz123@example.com",
       password: "haslo123",
-      badges: [1, 2, 3],
       stats: {
         totalEvents: 3,
         clubsVisited: 2,
-        favoriteGame: "Catan",
         joinDate: "2025-01-15"
-      },
-      history: [
-        {date: "2025-07-15", event: "Catan", club: "Hex Cafe", role: "uczestnik"},
-        {date: "2025-07-16", event: "Azul", club: "Boardowa", role: "uczestnik"},
-        {date: "2025-07-17", event: "Wingspan", club: "Meeples Restobar", role: "uczestnik"}
-      ]
-    },
-    {
-      username: "planszowka_lover",
-      email: "lover@example.com", 
-      password: "haslo456",
-      badges: [1, 4],
-      stats: {
-        totalEvents: 3,
-        clubsVisited: 2,
-        favoriteGame: "Wingspan",
-        joinDate: "2025-02-01"
       },
       history: []
     }
   ]
 };
 
-// Simple theme management
-function getStoredTheme() {
-  return localStorage.getItem('theme') || 'dark';
-}
-
-function setStoredTheme(theme) {
-  localStorage.setItem('theme', theme);
-}
-
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-color-scheme', theme);
-}
-
-// Initialize theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = getStoredTheme();
-  applyTheme(savedTheme);
-});
-
-// Simple auth management
-function getStoredUser() {
-  const userData = localStorage.getItem('currentUser');
-  return userData ? JSON.parse(userData) : null;
-}
-
-function setStoredUser(user) {
-  localStorage.setItem('currentUser', JSON.stringify(user));
-}
-
-// Date utilities
+// UTILITY FUNCTIONS
 function formatDate(dateString) {
   const date = new Date(dateString);
   const today = new Date('2025-07-19');
@@ -266,8 +165,10 @@ function isInRange(dateString, range) {
   }
 }
 
-// Notification system
+// NOTIFICATIONS SYSTEM
 function showNotification(message, type = 'success') {
+  console.log(`[${type.toUpperCase()}] ${message}`);
+  
   const container = document.getElementById('notifications');
   if (!container) return;
 
@@ -280,9 +181,8 @@ function showNotification(message, type = 'success') {
     info: 'fa-info-circle'
   };
   
-  const icon = icons[type] || icons.info;
   notification.innerHTML = `
-    <i class="fas ${icon}"></i>
+    <i class="fas ${icons[type] || icons.info}"></i>
     <span>${message}</span>
   `;
 
@@ -296,62 +196,109 @@ function showNotification(message, type = 'success') {
   }, 4000);
 }
 
-// Main Alpine.js Application
-function app() {
+// THEME MANAGEMENT
+function getStoredTheme() {
+  try {
+    return localStorage.getItem('theme') || 'dark';
+  } catch (e) {
+    return 'dark';
+  }
+}
+
+function setStoredTheme(theme) {
+  try {
+    localStorage.setItem('theme', theme);
+  } catch (e) {
+    console.warn('Cannot save theme');
+  }
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-color-scheme', theme);
+}
+
+// USER MANAGEMENT  
+function getStoredUser() {
+  try {
+    const userData = localStorage.getItem('currentUser');
+    return userData ? JSON.parse(userData) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredUser(user) {
+  try {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  } catch (e) {
+    console.warn('Cannot save user');
+  }
+}
+
+// GLOBAL CALLBACK FOR MAP POPUPS
+window.selectClub = function(clubId) {
+  console.log('Global selectClub called:', clubId);
+  
+  if (window.appInstance) {
+    const club = window.appInstance.clubs.find(c => c.id === clubId);
+    if (club) {
+      window.appInstance.selectClubFromMarker(club);
+    }
+  }
+};
+
+// MAIN ALPINE.JS FUNCTION
+function krakowskiePlanszowki() {
   return {
-    // Data
+    // DATA
     clubs: AppData.clubs,
     events: AppData.events,
-    badges: AppData.badges,
-    users: AppData.sampleUsers,
+    users: AppData.users,
 
-    // UI State
+    // UI STATE
     sidebarOpen: false,
     mapReady: false,
+    mapError: false,
+    mapStatus: 'Inicjalizacja...',
     selectedClub: null,
-    selectedEvent: null,
-    showEventModal: false,
     showLoginModal: false,
     showRegisterModal: false,
-    showProfileModal: false,
-    showInstallPrompt: false,
 
-    // User state
+    // USER STATE
     currentUser: null,
     currentTheme: 'dark',
 
-    // Forms
+    // FORMS
     loginForm: { username: '', password: '' },
     registerForm: { username: '', email: '', password: '' },
 
-    // Filters
+    // FILTERS
     activeFilter: 'today',
     clubFilter: '',
     filteredEvents: [],
 
-    // Map
+    // MAP
     map: null,
     markers: {},
 
-    // Filter options
+    // FILTER OPTIONS
     dateFilters: [
       { key: 'today', label: 'Dziś' },
       { key: 'week', label: 'Ten tydzień' },
       { key: 'month', label: 'Ten miesiąc' }
     ],
 
-    // Computed properties
+    // COMPUTED PROPERTIES
     get isDarkMode() {
       return this.currentTheme === 'dark';
     },
 
-    get isLoggedIn() {
-      return this.currentUser !== null;
-    },
-
-    // Initialization
+    // INITIALIZATION
     init() {
-      console.log('Initializing Krakowskie Planszówki 2.0...');
+      console.log('🚀 Inicjalizacja aplikacji...');
+      
+      // Store global instance
+      window.appInstance = this;
       
       // Initialize theme
       this.currentTheme = getStoredTheme();
@@ -360,103 +307,35 @@ function app() {
       // Initialize user
       this.currentUser = getStoredUser();
       
-      // Initialize UI
+      // Filter events
       this.filterEvents();
       
-      // Initialize map after a short delay to ensure DOM is ready
-      this.$nextTick(() => {
-        setTimeout(() => this.initMap(), 1000);
-      });
-      
-      // Store Alpine instance globally
-      window.alpineApp = this;
-      
-      // Show install prompt after delay
+      // Initialize map after delay
       setTimeout(() => {
-        this.showInstallPrompt = true;
-      }, 5000);
+        this.initMap();
+      }, 1000);
       
-      console.log('App initialized successfully');
+      console.log('✅ Aplikacja zainicjalizowana');
     },
 
-    // Theme Management
+    // THEME TOGGLE
     toggleTheme() {
+      console.log('🎨 Przełączanie motywu...');
+      
       this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
       applyTheme(this.currentTheme);
       setStoredTheme(this.currentTheme);
-      showNotification(
-        `Przełączono na motyw ${this.currentTheme === 'dark' ? 'ciemny' : 'jasny'}`, 
-        'info'
-      );
-    },
-
-    // Authentication
-    login() {
-      if (!this.loginForm.username || !this.loginForm.password) {
-        showNotification('Wypełnij wszystkie pola', 'error');
-        return;
-      }
-
-      const user = this.users.find(u => 
-        u.username === this.loginForm.username && u.password === this.loginForm.password
-      );
       
-      if (user) {
-        this.currentUser = user;
-        setStoredUser(user);
-        this.showLoginModal = false;
-        this.loginForm = { username: '', password: '' };
-        showNotification(`Witaj, ${user.username}! 🎉`, 'success');
-        this.checkForNewBadges();
-      } else {
-        showNotification('Nieprawidłowa nazwa użytkownika lub hasło', 'error');
-      }
+      showNotification(`Motyw: ${this.currentTheme === 'dark' ? 'ciemny' : 'jasny'}`, 'info');
     },
 
-    register() {
-      if (!this.registerForm.username || !this.registerForm.email || !this.registerForm.password) {
-        showNotification('Wypełnij wszystkie pola', 'error');
-        return;
-      }
-
-      if (this.users.find(u => u.username === this.registerForm.username)) {
-        showNotification('Nazwa użytkownika już istnieje', 'error');
-        return;
-      }
-
-      const newUser = {
-        username: this.registerForm.username,
-        email: this.registerForm.email,
-        password: this.registerForm.password,
-        badges: [],
-        stats: {
-          totalEvents: 0,
-          clubsVisited: 0,
-          favoriteGame: '',
-          joinDate: new Date().toISOString().split('T')[0]
-        },
-        history: []
-      };
-
-      this.users.push(newUser);
-      this.currentUser = newUser;
-      setStoredUser(newUser);
-      
-      this.showRegisterModal = false;
-      this.registerForm = { username: '', email: '', password: '' };
-      showNotification(`Witaj w społeczności, ${newUser.username}! 🎉`, 'success');
-    },
-
-    logout() {
-      this.currentUser = null;
-      localStorage.removeItem('currentUser');
-      this.showProfileModal = false;
-      showNotification('Zostałeś wylogowany', 'info');
-    },
-
-    // Map Management
+    // MAP INITIALIZATION
     async initMap() {
-      // Wait for Leaflet to be available
+      console.log('🗺️ Inicjalizuję mapę...');
+      
+      this.mapStatus = 'Ładowanie Leaflet...';
+      
+      // Wait for Leaflet
       let attempts = 0;
       while (typeof L === 'undefined' && attempts < 50) {
         await new Promise(resolve => setTimeout(resolve, 100));
@@ -464,104 +343,132 @@ function app() {
       }
       
       if (typeof L === 'undefined') {
-        console.error('Leaflet failed to load');
-        this.mapReady = true; // Set to true to hide loading state
+        console.error('Leaflet nie załadował się');
+        this.mapError = true;
         return;
       }
 
       try {
-        // Initialize map
+        this.mapStatus = 'Tworzenie mapy...';
+        
+        // Kraków coordinates
+        const krakowCenter = [50.0647, 19.9450];
+        
+        // Create map
         this.map = L.map('map', {
-          center: [50.0647, 19.9450],
+          center: krakowCenter,
           zoom: 12,
-          zoomControl: true
+          zoomControl: true,
+          attributionControl: true
         });
 
         // Add tile layer
-        const tileLayer = this.isDarkMode
-          ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-          : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-        L.tileLayer(tileLayer, {
+        this.mapStatus = 'Ładowanie kafelków...';
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors',
           maxZoom: 19
         }).addTo(this.map);
 
         // Add club markers
-        this.clubs.forEach(club => this.addClubMarker(club));
-        
-        // Force map to resize after initialization
+        this.mapStatus = 'Dodawanie markerów...';
+        this.addClubMarkers();
+
+        // Finalize
         setTimeout(() => {
           if (this.map) {
             this.map.invalidateSize();
           }
-        }, 100);
+        }, 500);
+
+        this.mapReady = true;
+        this.mapError = false;
+        showNotification('Mapa załadowana! 🗺️', 'success');
         
-        this.mapReady = true;
-        console.log('Map initialized with', this.clubs.length, 'markers');
-
       } catch (error) {
-        console.error('Error initializing map:', error);
-        this.mapReady = true;
+        console.error('Błąd mapy:', error);
+        this.mapError = true;
+        this.mapStatus = 'Błąd ładowania';
+        showNotification('Błąd ładowania mapy', 'error');
       }
     },
 
-    addClubMarker(club) {
-      if (!this.map) return;
+    // RETRY MAP
+    retryMap() {
+      this.mapReady = false;
+      this.mapError = false;
       
-      try {
-        const marker = L.marker(club.coordinates).addTo(this.map);
-
-        const clubEvents = this.getClubEvents(club.id);
-        const availableEvents = clubEvents.filter(e => e.players.length < e.maxPlayers);
-
-        const popupContent = `
-          <div style="min-width: 200px;">
-            <h4 style="margin: 0 0 8px 0; color: var(--color-text);">${club.name}</h4>
-            <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--color-text-secondary);">
-              📍 ${club.address}
-            </p>
-            <p style="margin: 0 0 12px 0; font-size: 14px; color: var(--color-text-secondary);">
-              📅 ${clubEvents.length} wydarzeń (${availableEvents.length} dostępnych)
-            </p>
-            <button onclick="window.selectClub(${club.id})" 
-                    style="width: 100%; padding: 8px 16px; background: var(--color-primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">
-              Zobacz klub
-            </button>
-          </div>
-        `;
-
-        marker.bindPopup(popupContent, {
-          maxWidth: 280
-        });
-
-        this.markers[club.id] = marker;
-
-      } catch (error) {
-        console.error('Error adding marker for:', club.name, error);
+      if (this.map) {
+        this.map.remove();
+        this.map = null;
       }
+      
+      setTimeout(() => this.initMap(), 1000);
     },
 
+    // ADD CLUB MARKERS
+    addClubMarkers() {
+      this.clubs.forEach(club => {
+        try {
+          const marker = L.marker(club.coordinates).addTo(this.map);
+          
+          const clubEvents = this.getClubEvents(club.id);
+          const availableEvents = clubEvents.filter(e => e.players.length < e.maxPlayers);
+
+          const popupContent = `
+            <div style="min-width: 200px; font-family: var(--font-family-base);">
+              <h4 style="margin: 0 0 8px 0; font-weight: 600; color: var(--color-text);">${club.name}</h4>
+              <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--color-text-secondary);">
+                📍 ${club.address}
+              </p>
+              <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--color-text-secondary);">
+                🕐 ${club.hours}
+              </p>
+              <p style="margin: 0 0 12px 0; font-size: 14px; color: var(--color-text-secondary);">
+                📅 ${clubEvents.length} wydarzeń (${availableEvents.length} dostępnych)
+              </p>
+              <button onclick="window.selectClub(${club.id})" 
+                      style="width: 100%; padding: 10px 16px; background: var(--color-primary); color: var(--color-btn-primary-text); border: none; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px;">
+                Zobacz klub
+              </button>
+            </div>
+          `;
+
+          marker.bindPopup(popupContent, { maxWidth: 280 });
+          this.markers[club.id] = marker;
+          
+        } catch (error) {
+          console.error(`Błąd markera ${club.name}:`, error);
+        }
+      });
+      
+      console.log(`✅ Dodano ${this.clubs.length} markerów`);
+    },
+
+    // SELECT CLUB FROM MARKER
     selectClubFromMarker(club) {
+      console.log('Wybrano klub:', club.name);
+      
       this.selectedClub = club;
       
       if (this.map) {
         this.map.closePopup();
       }
       
+      // Close sidebar on mobile
       if (window.innerWidth < 1024) {
         this.sidebarOpen = false;
       }
     },
 
-    // Event Management
+    // EVENT FILTERING
     filterEvents() {
       let filtered = [...this.events];
 
-      // Apply date filter
+      // Date filter
       filtered = filtered.filter(event => isInRange(event.date, this.activeFilter));
 
-      // Apply club filter
+      // Club filter
       if (this.clubFilter) {
         filtered = filtered.filter(event => event.clubId == this.clubFilter);
       }
@@ -577,32 +484,11 @@ function app() {
       this.filterEvents();
     },
 
-    getClubEvents(clubId) {
-      return this.events.filter(event => event.clubId === clubId);
-    },
-
-    getClubName(clubId) {
-      const club = this.clubs.find(c => c.id === clubId);
-      return club ? club.name : 'Nieznany klub';
-    },
-
-    getGameName(gameId) {
-      return gameId || 'Nieznana gra';
-    },
-
-    formatDate(dateString) {
-      return formatDate(dateString);
-    },
-
-    getPlayerInitials(playerName) {
-      return playerName.split(' ')
-        .map(name => name.charAt(0).toUpperCase())
-        .join('')
-        .substring(0, 2);
-    },
-
-    openEventModal(event) {
-      if (!this.isLoggedIn) {
+    // JOIN EVENT
+    joinEvent(event) {
+      console.log('Dołączanie do wydarzenia:', event.title);
+      
+      if (!this.currentUser) {
         this.showLoginModal = true;
         return;
       }
@@ -612,188 +498,132 @@ function app() {
         return;
       }
 
-      this.selectedEvent = event;
-      this.showEventModal = true;
-    },
-
-    joinEvent() {
-      if (!this.isLoggedIn || !this.selectedEvent) return;
-
       const username = this.currentUser.username;
 
-      if (this.selectedEvent.players.includes(username)) {
-        showNotification('Już jesteś zapisany na to wydarzenie!', 'error');
+      if (event.players.includes(username)) {
+        showNotification('Już jesteś zapisany!', 'error');
         return;
       }
 
-      if (this.selectedEvent.players.length >= this.selectedEvent.maxPlayers) {
-        showNotification('Ta gra jest już pełna!', 'error');
-        return;
-      }
-
-      // Add player to event
-      this.selectedEvent.players.push(username);
-
-      // Update user statistics
-      this.updateUserStats();
-
-      // Close modal
-      this.showEventModal = false;
-      this.selectedEvent = null;
-
-      // Update filtered events
+      // Add player
+      event.players.push(username);
+      
+      // Refresh filtered events
       this.filterEvents();
-
-      // Check for new badges
-      this.checkForNewBadges();
-
-      showNotification('Pomyślnie zapisałeś się na grę! 🎉', 'success');
+      
+      showNotification(`Zapisałeś się na ${event.gameId}! 🎉`, 'success');
     },
 
-    updateUserStats() {
-      if (!this.currentUser) return;
+    // LOGIN
+    login() {
+      console.log('Próba logowania:', this.loginForm.username);
+      
+      if (!this.loginForm.username || !this.loginForm.password) {
+        showNotification('Wypełnij wszystkie pola', 'error');
+        return;
+      }
 
-      const userEvents = this.events.filter(e => e.players.includes(this.currentUser.username));
-      const visitedClubs = [...new Set(userEvents.map(e => e.clubId))];
+      const user = this.users.find(u => 
+        u.username === this.loginForm.username && u.password === this.loginForm.password
+      );
+      
+      if (user) {
+        this.currentUser = user;
+        setStoredUser(user);
+        this.showLoginModal = false;
+        this.loginForm = { username: '', password: '' };
+        showNotification(`Witaj, ${user.username}! 🎉`, 'success');
+      } else {
+        showNotification('Nieprawidłowe dane logowania', 'error');
+      }
+    },
 
-      this.currentUser.stats = {
-        ...this.currentUser.stats,
-        totalEvents: userEvents.length,
-        clubsVisited: visitedClubs.length
+    // REGISTER
+    register() {
+      console.log('Próba rejestracji:', this.registerForm.username);
+      
+      if (!this.registerForm.username || !this.registerForm.email || !this.registerForm.password) {
+        showNotification('Wypełnij wszystkie pola', 'error');
+        return;
+      }
+
+      if (this.users.find(u => u.username === this.registerForm.username)) {
+        showNotification('Nazwa użytkownika już istnieje', 'error');
+        return;
+      }
+
+      const newUser = {
+        username: this.registerForm.username,
+        email: this.registerForm.email,
+        password: this.registerForm.password,
+        stats: {
+          totalEvents: 0,
+          clubsVisited: 0,
+          joinDate: new Date().toISOString().split('T')[0]
+        },
+        history: []
       };
 
-      // Add to history
-      if (this.selectedEvent) {
-        const newHistoryEntry = {
-          date: this.selectedEvent.date,
-          event: this.selectedEvent.gameId,
-          club: this.getClubName(this.selectedEvent.clubId),
-          role: 'uczestnik'
-        };
-        
-        this.currentUser.history.push(newHistoryEntry);
-      }
-
-      setStoredUser(this.currentUser);
+      this.users.push(newUser);
+      this.currentUser = newUser;
+      setStoredUser(newUser);
+      
+      this.showRegisterModal = false;
+      this.registerForm = { username: '', email: '', password: '' };
+      showNotification(`Witaj, ${newUser.username}! 🎉`, 'success');
     },
 
-    checkForNewBadges() {
-      if (!this.currentUser) return;
-
-      const stats = this.currentUser.stats;
-      const currentBadges = this.currentUser.badges || [];
-      const newBadges = [];
-
-      this.badges.forEach(badge => {
-        if (currentBadges.includes(badge.id)) return;
-
-        let earned = false;
-        switch (badge.requirement) {
-          case 'attend_first_event':
-            earned = stats.totalEvents >= 1;
-            break;
-          case 'attend_5_events':
-            earned = stats.totalEvents >= 5;
-            break;
-          case 'visit_3_clubs':
-            earned = stats.clubsVisited >= 3;
-            break;
-          case 'attend_20_events':
-            earned = stats.totalEvents >= 20;
-            break;
-        }
-
-        if (earned) {
-          newBadges.push(badge.id);
-        }
-      });
-
-      if (newBadges.length > 0) {
-        this.currentUser.badges = [...currentBadges, ...newBadges];
-        setStoredUser(this.currentUser);
-
-        newBadges.forEach(badgeId => {
-          const badge = this.badges.find(b => b.id === badgeId);
-          if (badge) {
-            showNotification(`🏆 Nowa odznaka: ${badge.name}!`, 'success');
-          }
-        });
-      }
+    // LOGOUT
+    logout() {
+      console.log('Wylogowywanie');
+      
+      this.currentUser = null;
+      try {
+        localStorage.removeItem('currentUser');
+      } catch (e) {}
+      
+      showNotification('Zostałeś wylogowany', 'info');
     },
 
-    // User Profile
-    getUserAvatar() {
+    // HELPER FUNCTIONS
+    getClubEvents(clubId) {
+      return this.events.filter(event => event.clubId === clubId);
+    },
+
+    getClubName(clubId) {
+      const club = this.clubs.find(c => c.id === clubId);
+      return club ? club.name : 'Nieznany klub';
+    },
+
+    formatDate(dateString) {
+      return formatDate(dateString);
+    },
+
+    getUserColor() {
       if (!this.currentUser) return '#666';
       
-      const hash = this.currentUser.username
-        .split('')
-        .reduce((a, b) => a + b.charCodeAt(0), 0);
-      
-      const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3', '#54A0FF'];
-      return colors[hash % colors.length];
+      const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3'];
+      const hash = this.currentUser.username.length % colors.length;
+      return colors[hash];
     },
 
     getUserInitials() {
       if (!this.currentUser) return '?';
-      return this.getPlayerInitials(this.currentUser.username);
-    },
-
-    getUserBadges() {
-      if (!this.currentUser || !this.currentUser.badges) return [];
       
-      return this.badges.filter(badge => 
-        this.currentUser.badges.includes(badge.id)
-      );
-    },
-
-    exportHistory() {
-      if (!this.currentUser || !this.currentUser.history) return;
-
-      const csvData = [
-        ['Data', 'Wydarzenie', 'Klub', 'Rola'],
-        ...this.currentUser.history.map(entry => [
-          entry.date,
-          entry.event,
-          entry.club,
-          entry.role
-        ])
-      ];
-
-      const csvContent = csvData
-        .map(row => row.map(field => `"${field}"`).join(','))
-        .join('\n');
-
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      
-      link.setAttribute('href', url);
-      link.setAttribute('download', `historia_${this.currentUser.username}.csv`);
-      link.style.visibility = 'hidden';
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      showNotification('Historia została wyeksportowana!', 'success');
-    },
-
-    // PWA Functions
-    installApp() {
-      this.showInstallPrompt = false;
-      showNotification('Funkcja instalacji jest symulowana w tej wersji demo', 'info');
+      return this.currentUser.username
+        .split(' ')
+        .map(name => name.charAt(0).toUpperCase())
+        .join('')
+        .substring(0, 2);
     }
   };
 }
 
-// Global function for popup callbacks
-window.selectClub = function(clubId) {
-  if (window.alpineApp) {
-    const club = window.alpineApp.clubs.find(c => c.id === clubId);
-    if (club) {
-      window.alpineApp.selectClubFromMarker(club);
-    }
-  }
-};
+// THEME INITIALIZATION ON DOM LOAD
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = getStoredTheme();
+  applyTheme(savedTheme);
+  console.log('🎨 Motyw początkowy:', savedTheme);
+});
 
-console.log('Krakowskie Planszówki 2.0 - Fixed App.js loaded successfully');
+console.log('✅ App.js załadowany pomyślnie');
